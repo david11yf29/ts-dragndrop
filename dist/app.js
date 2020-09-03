@@ -3,12 +3,21 @@ class ProjectInput {
     constructor() {
         this.templateElement = document.getElementById('project-input');
         this.hostElement = document.getElementById('app');
-        console.log('TemplateElement', this.templateElement);
         const importNode = document.importNode(this.templateElement.content, true);
-        console.log('ImportNode', importNode);
         this.element = importNode.firstElementChild;
-        console.log('FirstElement for importNode', this.element);
+        this.element.id = 'user-input';
+        this.titleInputElement = this.element.querySelector('#title');
+        this.descriptionInputElement = this.element.querySelector('#description');
+        this.peopleInputElement = this.element.querySelector('#people');
+        this.configure();
         this.attach();
+    }
+    submitHandler(event) {
+        event.preventDefault();
+        console.log(this.titleInputElement.value);
+    }
+    configure() {
+        this.element.addEventListener('submit', this.submitHandler);
     }
     attach() {
         this.hostElement.insertAdjacentElement('afterbegin', this.element);
